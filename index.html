@@ -70,8 +70,6 @@
 </head>
 <body>
 
-<!-- Added search bar to input address and see radius of near voting locations  -->
-<!-- https://stackoverflow.com/questions/31511971/display-markers-within-a-radius-using-leaflet/31544749#31544749#1 -->
 <div class="page">
 
     <div class="lookup">
@@ -98,12 +96,13 @@
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-    var countyColors = {"kane": "#e41a1c", "dupage": "#377eb8", "will": "#4daf4a", "mchenry": "#984ea3"};
+    var categoryColors = {"long": "#d73027", "standard": "#4575b4", "mobile": "#1a9850"};
+    var categoryLabels = {"long": "Open Sep 24 \u2013 Nov 3", "standard": "Open Oct 19 \u2013 Nov 3", "mobile": "Mobile / pop-up"};
     var geojsonUrl = "voting_locations.geojson";
     var defaultRadiusMiles = 5;
     var LABEL_MIN_ZOOM = 11;
 
-    var map = L.map('map').setView([41.847004, -88.170503], 9);
+    var map = L.map('map').setView([41.839535, -88.171255], 9);
 
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,
@@ -111,9 +110,19 @@
         referrerPolicy: "strict-origin-when-cross-origin"
     }).addTo(map);
 
-    function colorFor(county) {
-        return countyColors[(county || "").toLowerCase()] || "#666666";
+    function colorFor(category) {
+        return categoryColors[category] || "#666666";
     }
+
+    // Five-point star path for Leaflet's divIcon. Drawn in a 24x24 box.
+    var STAR_SVG = function(color, size) {
+        return '<svg width="' + size + '" height="' + size + '" viewBox="0 0 24 24" ' +
+               'style="filter: drop-shadow(0 1px 1px rgba(0,0,0,0.4));">' +
+               '<polygon points="12,2 15,9 22,9.5 16.5,14 18.5,21.5 12,17.5 ' +
+               '5.5,21.5 7.5,14 2,9.5 9,9" ' +
+               'fill="' + color + '" stroke="#fff" stroke-width="1.2"/>' +
+               '</svg>';
+    };
 
     var allFeatures = [];
     var markerByIndex = new Map();
@@ -159,9 +168,25 @@
             allFeatures = data.features || [];
             pollingLayer = L.geoJSON(data, {
                 pointToLayer: function(feature, latlng) {
+                    var p = feature.properties;
+                    var color = colorFor(p.category);
+
+                    if (p.dropbox) {
+                        // Star marker for dropboxes
+                        var icon = L.divIcon({
+                            className: '',
+                            html: STAR_SVG(color, 22),
+                            iconSize: [22, 22],
+                            iconAnchor: [11, 11],
+                            popupAnchor: [0, -11]
+                        });
+                        return L.marker(latlng, { icon: icon });
+                    }
+
+                    // Regular circle for non-dropbox
                     return L.circleMarker(latlng, {
                         radius: 7,
-                        fillColor: colorFor(feature.properties.county),
+                        fillColor: color,
                         color: "#fff",
                         weight: 1.5,
                         opacity: 1,
@@ -170,9 +195,15 @@
                 },
                 onEachFeature: function(feature, lyr) {
                     var p = feature.properties;
+                    var catLabel = categoryLabels[p.category] || p.category || "";
+                    var dropLine = p.dropbox
+                        ? '<br><span style="color:#1a9850;font-weight:600;">★ Ballot dropbox</span>'
+                        : '';
                     var popup = "<strong>" + p.name + "</strong><br>" +
                                 p.address + "<br>" +
-                                "<em>" + p.county + " County</em>";
+                                "<em>" + p.county + " County</em><br>" +
+                                "<span style='color:#666;'>" + catLabel + "</span>" +
+                                dropLine;
                     lyr.bindPopup(popup);
                     lyr._labelText = p.name;
                     var idx = allFeatures.indexOf(feature);
@@ -188,11 +219,17 @@
             var legend = L.control({ position: 'bottomright' });
             legend.onAdd = function() {
                 var div = L.DomUtil.create('div', 'legend');
-                var h = "<strong>County</strong><br>";
-                Object.keys(countyColors).forEach(function(c) {
-                    h += '<i style="background:' + countyColors[c] + '"></i>' +
-                         c.charAt(0).toUpperCase() + c.slice(1) + '<br>';
+                var h = "<strong>Early voting window</strong><br>";
+                Object.keys(categoryColors).forEach(function(c) {
+                    h += '<i style="background:' + categoryColors[c] + '"></i>' +
+                         (categoryLabels[c] || c) + '<br>';
                 });
+                h += '<hr style="margin:6px 0;border:0;border-top:1px solid #ddd;">';
+                h += '<strong>Marker shape</strong><br>';
+                h += '<span style="display:inline-block;width:14px;text-align:center;">●</span> ' +
+                     'Voting location<br>';
+                h += '<span style="display:inline-block;width:14px;text-align:center;color:#1a9850;">★</span> ' +
+                     'Ballot dropbox';
                 div.innerHTML = h;
                 return div;
             };
@@ -231,6 +268,10 @@
         setStatus("Looking up address...", "loading");
         locateBtn.disabled = true;
 
+        // Address lookup uses the public Nominatim API.
+        // Policy: https://operations.osmfoundation.org/policies/nominatim/
+        // - Max 1 request/second. Do NOT wire this to keystroke autocomplete.
+        // - Must send Referer/User-Agent; browser sends Referer automatically over HTTP.
         var url = "https://nominatim.openstreetmap.org/search" +
                   "?format=json&limit=1&q=" + encodeURIComponent(q);
 
@@ -289,11 +330,21 @@
         if (!userLatLng) return;
         markerByIndex.forEach(function(lyr) {
             var d = haversineMiles(userLatLng, lyr.getLatLng());
-            if (d <= currentRadiusMiles) {
-                lyr.setStyle({ radius: 9, weight: 2.5, opacity: 1, fillOpacity: 1 });
-                if (lyr.bringToFront) lyr.bringToFront();
+            var isNear = d <= currentRadiusMiles;
+
+            if (lyr.setStyle) {
+                // circleMarker
+                if (isNear) {
+                    lyr.setStyle({ radius: 9, weight: 2.5, opacity: 1, fillOpacity: 1 });
+                    if (lyr.bringToFront) lyr.bringToFront();
+                } else {
+                    lyr.setStyle({ radius: 5, weight: 1, opacity: 0.45, fillOpacity: 0.35 });
+                }
             } else {
-                lyr.setStyle({ radius: 5, weight: 1, opacity: 0.45, fillOpacity: 0.35 });
+                // star (divIcon marker) — adjust opacity on the wrapping element
+                var el = lyr.getElement && lyr.getElement();
+                if (el) el.style.opacity = isNear ? "1" : "0.4";
+                if (isNear && lyr.bringToFront) lyr.bringToFront();
             }
         });
     }
@@ -321,7 +372,12 @@
         setStatus("");
         inputEl.value = "";
         markerByIndex.forEach(function(lyr) {
-            lyr.setStyle({ radius: 7, weight: 1.5, opacity: 1, fillOpacity: 0.9 });
+            if (lyr.setStyle) {
+                lyr.setStyle({ radius: 7, weight: 1.5, opacity: 1, fillOpacity: 0.9 });
+            } else {
+                var el = lyr.getElement && lyr.getElement();
+                if (el) el.style.opacity = "1";
+            }
         });
         if (pollingLayer && pollingLayer.getBounds().isValid()) {
             map.flyToBounds(pollingLayer.getBounds(), { padding: [40, 40] });
