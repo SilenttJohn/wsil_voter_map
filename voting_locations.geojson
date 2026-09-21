@@ -11,7 +11,7 @@
         ]
       },
       "properties": {
-        "name": "Kane County Clerk's Office",
+        "name": "Kane County Clerk's Office (Geneva)",
         "address": "719 S Batavia Ave, Bldg. B, Geneva, IL 60134",
         "city": "Geneva",
         "county": "Kane",
@@ -363,6 +363,40 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -88.364806029007,
+          41.76430586379
+        ]
+      },
+      "properties": {
+        "name": "Jewel-Osco in Aurora (Mobile)",
+        "address": "1952 W Galena Blvd, Aurora, IL 60506",
+        "city": "Aurora",
+        "county": "Kane",
+        "source": "census"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -88.324784905299,
+          41.798424464622
+        ]
+      },
+      "properties": {
+        "name": "North Aurora Police Department (Mobile)",
+        "address": "200 S Lincolnway St, North Aurora, IL 60542",
+        "city": "North Aurora",
+        "county": "Kane",
+        "source": "census"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -87.988588358926,
           41.934658631272
         ]
@@ -453,7 +487,7 @@
         ]
       },
       "properties": {
-        "name": "Athletic Rec Center",
+        "name": "Athletic Rec Center (in Program Room A)",
         "address": "8201 Janes Ave, Woodridge, IL 60517",
         "city": "Woodridge",
         "county": "DuPage",
@@ -470,7 +504,7 @@
         ]
       },
       "properties": {
-        "name": "Bensenville Police Department",
+        "name": "Bensenville Police Department (in Training Room)",
         "address": "345 E Green St, Bensenville, IL 60106",
         "city": "Bensenville",
         "county": "DuPage",
@@ -487,7 +521,7 @@
         ]
       },
       "properties": {
-        "name": "Darien Community Center",
+        "name": "Darien Community Center (in Room 16 - Piano Room)",
         "address": "7301 Fairview Ave, Darien, IL 60561",
         "city": "Darien",
         "county": "DuPage",
@@ -504,7 +538,7 @@
         ]
       },
       "properties": {
-        "name": "Downers Grove Rec Center",
+        "name": "Downers Grove Rec Center (in Room 103)",
         "address": "4500 Belmont Rd, Downers Grove, IL 60515",
         "city": "Downers Grove",
         "county": "DuPage",
@@ -521,7 +555,7 @@
         ]
       },
       "properties": {
-        "name": "Elmhurst City Hall",
+        "name": "Elmhurst City Hall (in Council Chambers)",
         "address": "209 N York Rd, Elmhurst, IL 60126",
         "city": "Elmhurst",
         "county": "DuPage",
@@ -538,7 +572,7 @@
         ]
       },
       "properties": {
-        "name": "Fox Valley Mall",
+        "name": "Fox Valley Mall (at Mall Entrance #1 Unit E2)",
         "address": "195 Fox Valley Center Dr, Aurora, IL 60504",
         "city": "Aurora",
         "county": "DuPage",
@@ -555,7 +589,7 @@
         ]
       },
       "properties": {
-        "name": "Glen Ellyn Civic Center",
+        "name": "Glen Ellyn Civic Center (in Clayton North Hall)",
         "address": "535 Duane St, Glen Ellyn, IL 60137",
         "city": "Glen Ellyn",
         "county": "DuPage",
@@ -572,7 +606,7 @@
         ]
       },
       "properties": {
-        "name": "Glendale Heights Sports Hub",
+        "name": "Glendale Heights Sports Hub (in Arts and Crafts Room)",
         "address": "250 Civic Center Plaza, Glendale Hts, IL 60139",
         "city": "Glendale Heights",
         "county": "DuPage",
@@ -589,7 +623,7 @@
         ]
       },
       "properties": {
-        "name": "Hinsdale Village Hall",
+        "name": "Hinsdale Village Hall (Scout Room)",
         "address": "19 E Chicago Ave, Hinsdale, IL 60521",
         "city": "Hinsdale",
         "county": "DuPage",
@@ -606,7 +640,7 @@
         ]
       },
       "properties": {
-        "name": "Itasca Waterpark",
+        "name": "Itasca Waterpark (in Rental Hall)",
         "address": "100 N Catalpa St, Itasca, IL 60143",
         "city": "Itasca",
         "county": "DuPage",
@@ -623,7 +657,7 @@
         ]
       },
       "properties": {
-        "name": "Lisle Police Department",
+        "name": "Lisle Police Department (in Training Room)",
         "address": "5040 Lincoln Ave, Lisle, IL 60532",
         "city": "Lisle",
         "county": "DuPage",
@@ -640,7 +674,7 @@
         ]
       },
       "properties": {
-        "name": "Oak Brook Village Hall",
+        "name": "Oak Brook Village Hall (in West Wing Conference Room)",
         "address": "1200 Oak Brook Rd, Oak Brook, IL 60523",
         "city": "Oak Brook",
         "county": "DuPage",
@@ -657,7 +691,7 @@
         ]
       },
       "properties": {
-        "name": "Roselle Public Library",
+        "name": "Roselle Public Library (in Community Room A & B)",
         "address": "40 S Park St, Roselle, IL 60172",
         "city": "Roselle",
         "county": "DuPage",
@@ -674,7 +708,7 @@
         ]
       },
       "properties": {
-        "name": "Villa Park Public Library",
+        "name": "Villa Park Public Library (in Ohrman Room)",
         "address": "305 S Ardmore Ave, Villa Park, IL 60181",
         "city": "Villa Park",
         "county": "DuPage",
@@ -691,7 +725,7 @@
         ]
       },
       "properties": {
-        "name": "Warrenville Park District",
+        "name": "Warrenville Park District (in Multipurpose Room)",
         "address": "3S260 Warren Ave, Warrenville, IL 60555",
         "city": "Warrenville",
         "county": "DuPage",
@@ -708,7 +742,7 @@
         ]
       },
       "properties": {
-        "name": "West Chicago Voting Center",
+        "name": "West Chicago Voting Center (in Foyer)",
         "address": "157 W Washington, West Chicago, IL 60185",
         "city": "West Chicago",
         "county": "DuPage",
@@ -725,7 +759,7 @@
         ]
       },
       "properties": {
-        "name": "Westmont Public Library",
+        "name": "Westmont Public Library (in 1st Floor Meeting Room)",
         "address": "428 N Cass Ave, Westmont, IL 60559",
         "city": "Westmont",
         "county": "DuPage",
@@ -742,7 +776,7 @@
         ]
       },
       "properties": {
-        "name": "Wheaton Park District Blanchard Building",
+        "name": "Wheaton Park District Blanchard Building (in Commons Area)",
         "address": "1753 S Blanchard Rd, Wheaton, IL 60189",
         "city": "Wheaton",
         "county": "DuPage",
@@ -754,16 +788,67 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -88.0034812,
-          41.8391575
+          -88.009316,
+          41.83818
         ]
       },
       "properties": {
         "name": "Yorktown Center",
-        "address": "203 Yorktown Shopping Center, Lombard, IL 60148",
+        "address": "203 Yorktown Shopping Center, Lombard, IL 60148 & 350 Yorktown Shopping Center, Lombard, IL 60148 (Dropbox)",
         "city": "Lombard",
         "county": "DuPage",
         "source": "locationiq"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -88.142519114005,
+          41.861075454435
+        ]
+      },
+      "properties": {
+        "name": "VBM Ballot 24/7 Dropbox in Parking Lot at DuPage County Administration Building",
+        "address": "421 N County Farm Rd, Wheaton, IL 60187",
+        "city": "Wheaton",
+        "county": "DuPage",
+        "source": "census"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -88.142519114005,
+          41.861075454435
+        ]
+      },
+      "properties": {
+        "name": "DuPage County Clerk Election Division (in Room 1-600)",
+        "address": "421 N County Farm Rd, Wheaton, IL 60187",
+        "city": "Wheaton",
+        "county": "DuPage",
+        "source": "census"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -88.142519114005,
+          41.861075454435
+        ]
+      },
+      "properties": {
+        "name": "VBM Ballot Dropbox in JTK Administration Building",
+        "address": "421 N County Farm Rd, Wheaton, IL 60187",
+        "city": "Wheaton",
+        "county": "DuPage",
+        "source": "census"
       }
     },
     {
@@ -948,6 +1033,23 @@
       "properties": {
         "name": "Lockport Township",
         "address": "1463 S. Farrell Rd., Community Rm. Lockport, IL 60441",
+        "city": "Lockport",
+        "county": "Will",
+        "source": "census"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -88.056670578377,
+          41.590239554206
+        ]
+      },
+      "properties": {
+        "name": "White Oak Library (Lockport BrancH)",
+        "address": "121 E 8th St, Lockport, IL 60441",
         "city": "Lockport",
         "county": "Will",
         "source": "census"
@@ -1196,12 +1298,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          -88.081555573728,
+          41.521644655755
+        ]
+      },
+      "properties": {
+        "name": "Will County Adult Detention Facility (For Detainees)",
+        "address": "95 S Chicago St, Joliet, IL 60436",
+        "city": "Joliet",
+        "county": "Will",
+        "source": "census"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           -88.4404131,
           42.342556
         ]
       },
       "properties": {
-        "name": "24/7 Dropbox",
+        "name": "McHenry VBM Ballot 24/7 Dropbox",
         "address": "667 Ware Rd., Woodstock",
         "city": "Wodostock",
         "county": "McHenry",
